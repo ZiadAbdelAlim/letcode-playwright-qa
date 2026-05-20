@@ -66,7 +66,7 @@ npx playwright test tests/specs/forms --project=chromium
 
 ## CI / CD
 
-[![Playwright Tests](https://github.com/ziadabdeqawy/letcode-automation/actions/workflows/playwright.yml/badge.svg)](https://github.com/ziadabdeqawy/letcode-automation/actions/workflows/playwright.yml)
+[![Playwright Tests](https://github.com/ZiadAbdelAlim/letcode-playwright-qa/actions/workflows/playwright.yml/badge.svg)](https://github.com/ZiadAbdelAlim/letcode-playwright-qa/actions/workflows/playwright.yml)
 
 Two GitHub Actions workflows ship with this repo:
 
