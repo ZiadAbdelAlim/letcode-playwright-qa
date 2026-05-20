@@ -64,6 +64,30 @@ npm run test:report            # open the last HTML report
 npx playwright test tests/specs/forms --project=chromium
 ```
 
+## CI / CD
+
+[![Playwright Tests](https://github.com/ziadabdeqawy/letcode-automation/actions/workflows/playwright.yml/badge.svg)](https://github.com/ziadabdeqawy/letcode-automation/actions/workflows/playwright.yml)
+
+Two GitHub Actions workflows ship with this repo:
+
+| Workflow | Trigger | Browsers | Blocks PR merge? |
+|---|---|---|---|
+| `playwright.yml` | Every push / PR to `main` | Chromium | Yes |
+| `playwright-cross-browser.yml` | Weekly (Mon 02:00 UTC) + manual | Firefox, WebKit, mobile-Chrome, mobile-Safari | No |
+
+**What each run does:**
+1. Checks out code, sets up Node 20, and restores Playwright browser binaries from cache (keyed on `package-lock.json` — a cold install adds ~2 min; cache hits skip it).
+2. Runs `npx playwright test --project=chromium` with `CI=true` (retries: 2, workers: 1, `--forbid-only` enforced).
+3. Uploads the HTML report as an artifact on every run (14-day retention); uploads traces + screenshots only on failure (7-day retention).
+
+**Branch protection (block merges on failure):**  
+In GitHub → Settings → Branches → add a rule for `main`:
+- Enable **"Require status checks to pass before merging"**
+- Add required check: **`Playwright (Chromium)`**
+- Enable **"Require branches to be up to date before merging"**
+
+Once set, the merge button stays locked until the Chromium job is green.
+
 ## Project structure
 
 ```
